@@ -1,13 +1,13 @@
 import os
 import glob
 
-print("========= Welcome to my database, ver 1.0 =========")
+print(" Welcome to my database, ver 1.0 ".center(75, "="))
 
 current_table = ""
 
 
 def create_table():
-    print("==================== New table ====================")
+    print(" New table ".center(75, "="))
     try:
         table_name = input("Enter table name: ")
         open(table_name + ".txt", "x")
@@ -19,7 +19,7 @@ def create_table():
 
 
 def set_columns():
-    print("================== Set column(s) ==================")
+    print(" Set column(s) ".center(75, "="))
     print("Enter column names, separated by semicolon")
     print("For example: one;two;three")
     columns = input("Enter column names: ")
@@ -45,7 +45,7 @@ def add_record():
 
 
 def select_table():
-    print("================== Select table ===================")
+    print(" Select table ".center(75, "="))
     tables = glob.glob("*.txt")
     for table in tables:
         print(table.rstrip(".txt"))
@@ -132,7 +132,7 @@ while True:
         else:
             print("Table is empty!")
     elif choice == 0:
-        print("Goodbye!")
+        print(" Goodbye! ".center(75, "="))
         break
     else:
         print("Incorrect value!")
