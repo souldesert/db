@@ -38,7 +38,6 @@ def add_record():
     record = ""
     for column in columns:
         element = input(column.rstrip('\n') + ": ")
-        # element = element.rstrip()
         record += element
         record += ";"
     table.write("\n" + record.rstrip(';'))
@@ -49,7 +48,7 @@ def select_table():
     print("================== Select table ===================")
     tables = glob.glob("*.txt")
     for table in tables:
-        print(table.replace(".txt", ""))
+        print(table.rstrip(".txt"))
     selected = input("Select table: ")
     if selected + ".txt" in tables:
         global current_table
@@ -58,12 +57,47 @@ def select_table():
     else:
         print("No such table!")
 
+
+def show_table():
+    print((" " + current_table + " ").center(75, "="))
+    table = open(current_table + ".txt", "r")
+    for line in table.readlines():
+        elements = line.split(";")
+        output = ""
+        for element in elements:
+            output += element.rstrip("\n").ljust(25)
+        print(output)
+    print("=" * 75)
+
+
+def search():
+    key = input("Search for: ")
+    table = open(current_table + ".txt", "r")
+    header = table.readline()
+    elements = header.split(";")
+    output = ""
+    for element in elements:
+        output += element.rstrip("\n").ljust(25)
+    print((" " + current_table + " ").center(75, "="))
+    print(output)
+    for line in table.readlines():
+        if key in line:
+            elements = line.split(";")
+            output = ""
+            for element in elements:
+                output += element.rstrip("\n").ljust(25)
+            print(output)
+    print("=" * 75)
+
+
 while True:
     print("Choose option:")
     print("1. Create new table")
     print("2. Set column(s) in current table")
     print("3. Add record to table")
     print("4. Select table")
+    print("5. Show table")
+    print("6. Search in table")
     print("0. Exit")
     choice = int(input("Enter your choice: "))
     if choice == 1:
@@ -83,6 +117,20 @@ while True:
             print("No selected table!")
     elif choice == 4:
         select_table()
+    elif choice == 5:
+        if current_table == "":
+            print("No selected table!")
+        elif os.stat(current_table + ".txt").st_size != 0:
+            show_table()
+        else:
+            print("Table is empty!")
+    elif choice == 6:
+        if current_table == "":
+            print("No selected table!")
+        elif os.stat(current_table + ".txt").st_size != 0:
+            search()
+        else:
+            print("Table is empty!")
     elif choice == 0:
         print("Goodbye!")
         break
