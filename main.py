@@ -1,7 +1,7 @@
 import os
 import glob
 
-print(" Welcome to my database, ver 1.0 ".center(75, "="))
+print(" Welcome to my database, ver. 1.0 ".center(75, "="))
 
 current_table = ""
 
@@ -31,6 +31,7 @@ def set_columns():
 
 
 def add_record():
+    print(" Add record ".center(75, "="))
     table = open(current_table + ".txt", "r")
     columns = table.readline().split(";")
     table.close()
